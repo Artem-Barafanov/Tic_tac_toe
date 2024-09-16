@@ -68,6 +68,73 @@ int main(int argc, char *argv[])
     qle2->setFont(font);
     qle2->setFixedSize(250, 35);
 
+    int x = 150;
+    int y = 100;
+    int size = 90;
+    MyPushButton *b1 = new MyPushButton("",&w);
+    b1->hide();
+    b1->move(x,y);
+    font = b1->font();
+    font.setPointSize(15);
+    b1->setFont(font);
+    b1->setFixedSize(size, size);
+    MyPushButton *b2 = new MyPushButton("",&w);
+    b2->hide();
+    b2->move(x+size,y);
+    font = b2->font();
+    font.setPointSize(15);
+    b2->setFont(font);
+    b2->setFixedSize(size, size);
+    MyPushButton *b3 = new MyPushButton("",&w);
+    b3->hide();
+    b3->move(2*size+x,y);
+    font = b3->font();
+    font.setPointSize(15);
+    b3->setFont(font);
+    b3->setFixedSize(size, size);
+    MyPushButton *b4 = new MyPushButton("",&w);
+    b4->hide();
+    b4->move(x,size+y);
+    font = b4->font();
+    font.setPointSize(15);
+    b4->setFont(font);
+    b4->setFixedSize(size, size);
+    MyPushButton *b5 = new MyPushButton("",&w);
+    b5->hide();
+    b5->move(size+x,size+y);
+    font = b5->font();
+    font.setPointSize(15);
+    b5->setFont(font);
+    b5->setFixedSize(size, size);
+    MyPushButton *b6 = new MyPushButton("",&w);
+    b6->hide();
+    b6->move(2*size+x,size+y);
+    font = b6->font();
+    font.setPointSize(15);
+    b6->setFont(font);
+    b6->setFixedSize(size, size);
+    MyPushButton *b7 = new MyPushButton("",&w);
+    b7->hide();
+    b7->move(x,2*size+y);
+    font = b7->font();
+    font.setPointSize(15);
+    b7->setFont(font);
+    b7->setFixedSize(size, size);
+    MyPushButton *b8 = new MyPushButton("",&w);
+    b8->hide();
+    b8->move(size+x,2*size+y);
+    font = b8->font();
+    font.setPointSize(15);
+    b8->setFont(font);
+    b8->setFixedSize(size, size);
+    MyPushButton *b9 = new MyPushButton("",&w);
+    b9->hide();
+    b9->move(2*size+x,2*size+y);
+    font = b9->font();
+    font.setPointSize(15);
+    b9->setFont(font);
+    b9->setFixedSize(size, size);
+
     w.resize(600, 500);
     QObject::connect(auth, SIGNAL(clicked()),auth, SLOT(Hide_itself()));
     QObject::connect(auth, SIGNAL(Hide_another()),game, SLOT(hide()));
@@ -96,6 +163,52 @@ int main(int argc, char *argv[])
         game->setEnabled(true);
         game->setStyleSheet("background-color: white; color: black;");
     });
+    QObject::connect(game, SIGNAL(clicked()),game, SLOT(Hide_itself()));
+    QObject::connect(game, SIGNAL(Hide_another()), auth, SLOT(hide()));
+    QObject::connect(game, SIGNAL(Show_another()), b1, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b2, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b3, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b4, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b5, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b6, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b7, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b8, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), b9, SLOT(show()));
+
+
+    QObject::connect(b1, SIGNAL(clicked()),b1, SLOT(SetValue()));
+    QObject::connect(b2, SIGNAL(clicked()),b2, SLOT(SetValue()));
+    QObject::connect(b3, SIGNAL(clicked()),b3, SLOT(SetValue()));
+    QObject::connect(b4, SIGNAL(clicked()),b4, SLOT(SetValue()));
+    QObject::connect(b5, SIGNAL(clicked()),b5, SLOT(SetValue()));
+    QObject::connect(b6, SIGNAL(clicked()),b6, SLOT(SetValue()));
+    QObject::connect(b7, SIGNAL(clicked()),b7, SLOT(SetValue()));
+    QObject::connect(b8, SIGNAL(clicked()),b8, SLOT(SetValue()));
+    QObject::connect(b9, SIGNAL(clicked()),b9, SLOT(SetValue()));
+
+    /*
+    QLabel *name1 = new QLabel(&w);
+    lbl->setText(qle1->text());
+    lbl->hide();
+    lbl->move(10,100);
+    font = lbl->font();
+    font.setPointSize(15);
+    lbl->setFont(font);
+    lbl->setFixedSize(400, 100);
+
+    QLabel *name2 = new QLabel(&w);
+    lbl->setText(qle2->text());
+    lbl->hide();
+    lbl->move(10,100);
+    font = lbl->font();
+    font.setPointSize(15);
+    lbl->setFont(font);
+    lbl->setFixedSize(400, 100);
+
+    QObject::connect(game, SIGNAL(Show_another()), name1, SLOT(show()));
+    QObject::connect(game, SIGNAL(Show_another()), name2, SLOT(show()));
+*/
+
     w.show();
 
     return a.exec();
