@@ -14,6 +14,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+signals:
+    void game_clicked();
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -28,15 +30,6 @@ private:
     QLabel *lbl_winner;
     QLineEdit *qle1;
     QLineEdit *qle2;
-    MyPushButton *b0;
-    MyPushButton *b1;
-    MyPushButton *b2;
-    MyPushButton *b3;
-    MyPushButton *b4;
-    MyPushButton *b5;
-    MyPushButton *b6;
-    MyPushButton *b7;
-    MyPushButton *b8;
 
 };
 #endif // MAINWINDOW_H

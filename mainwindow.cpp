@@ -1,7 +1,6 @@
 #include <QtWidgets>
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "MyPushButton.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -53,15 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     lbl->setFont(font);
     lbl->setFixedSize(400, 100);
 
-    QLabel *lbl_winner = new QLabel(centralWidget());
-    lbl_winner->hide();
-    lbl_winner->move(230,330);
-    font = lbl_winner->font();
-    font.setPointSize(30);
-    lbl_winner->setFont(font);
-    lbl_winner->setFixedSize(200, 200);
-    lbl_winner->setAutoFillBackground(true);
-
     QLineEdit *qle1 = new QLineEdit(centralWidget());
     qle1->hide();
     qle1->move(250,130);
@@ -77,32 +67,6 @@ MainWindow::MainWindow(QWidget *parent)
     font.setPointSize(15);
     qle2->setFont(font);
     qle2->setFixedSize(250, 35);
-
-    int x = 150;
-    int y = 100;
-    int size = 90;
-
-    MyPushButton *b0 = new MyPushButton("",centralWidget());
-    MyPushButton *b1 = new MyPushButton("",centralWidget());
-    MyPushButton *b2 = new MyPushButton("",centralWidget());
-    MyPushButton *b3 = new MyPushButton("",centralWidget());
-    MyPushButton *b4 = new MyPushButton("",centralWidget());
-    MyPushButton *b5 = new MyPushButton("",centralWidget());
-    MyPushButton *b6 = new MyPushButton("",centralWidget());
-    MyPushButton *b7 = new MyPushButton("",centralWidget());
-    MyPushButton *b8 = new MyPushButton("",centralWidget());
-    QList<MyPushButton*> cells = {b0, b1, b2, b3, b4, b5, b6, b7, b8};
-
-    int mooving[9][2] = {{x,y}, {x+size,y}, {2*size+x,y}, {x,size+y}, {size+x,size+y}, {2*size+x,size+y}, {x,2*size+y},
-                       {size+x,2*size+y}, {2*size+x,2*size+y}};
-    for (int i = 0; i<cells.size(); i++){
-        cells[i]->hide();
-        cells[i]->move(mooving[i][0], mooving[i][1]);
-        font = cells[i]->font();
-        font.setPointSize(15);
-        cells[i]->setFont(font);
-        cells[i]->setFixedSize(size, size);
-    }
 
     QObject::connect(auth, &MyPushButton::clicked, auth, &MyPushButton::Hide_itself);
     QObject::connect(auth, &MyPushButton::Hide_another,game, &MyPushButton::hide);
@@ -131,33 +95,13 @@ MainWindow::MainWindow(QWidget *parent)
         game->setEnabled(true);
         game->setStyleSheet("background-color: white; color: black;");
     });
-    QObject::connect(game, &MyPushButton::clicked,game, &MyPushButton::Hide_itself);
-    QObject::connect(game, &MyPushButton::Hide_another, auth, &MyPushButton::hide);
-    for (int i = 0; i<cells.size(); ++i) {
-        QObject::connect(game, &MyPushButton::Show_another, cells[i], &MyPushButton::show);
-    }
 
-    for (int i = 0; i<cells.size(); ++i) {
-        QObject::connect(cells[i], &QPushButton::clicked, [cells, i]() {
-            cells[i]->SetValue(i);
-        });
-    }
 
-    extern int Buttons[];
-    extern int size_butt;
-
-    for (int i = 0; i<cells.size(); ++i) {
-        QObject::connect(cells[i], &QPushButton::clicked, [cells, i]() {
-            cells[i]->CheckWin(Buttons, size_butt);
-        });
-    }
-
-    for (int i = 0; i<cells.size(); ++i) {
-        QObject::connect(cells[i], &MyPushButton::Win, [lbl_winner](const QString result) {
-            lbl_winner->setText(result);
-            lbl_winner->show();
-        });
-    }
+    QObject::connect(game, &MyPushButton::clicked,game, [this] () {
+        this->close();});
+    QObject::connect(game, &MyPushButton::clicked, [this] () {
+        emit game_clicked();
+    });
 }
 
 MainWindow::~MainWindow()
